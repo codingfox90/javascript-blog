@@ -43,7 +43,8 @@ const optArticleSelector = '.post',
   optCloudClassPrefix = 'tag-size-';
 function generateTitleLinks(customSelector = '') {
   /* remove contents of titleList */
-  const titleList = document.querySelectorAll(optTitleListSelector);
+  const titleList = document.querySelector(optTitleListSelector);
+  console.log('titleList', titleList);
 
   titleList.innerHTML = '';
   const activeLinks = document.querySelectorAll('.titles a.active');
@@ -68,23 +69,33 @@ function generateTitleLinks(customSelector = '') {
 
     /* find the title element */
     const articleTitle = article.querySelector(optTitleSelector);
+    console.log('articleTitle', articleTitle);
 
     /* get the title from the title element */
-    console.log('articleTitle: ', articleTitle);
+    const articleTitleContent = articleTitle.innerHTML;
+    console.log('articleTitleContent: ', articleTitleContent);
 
     /* create HTML of the link */
-    const linkHTML = '<li><a href="#' + articleId + '"><span></span></a></li>';
+    const linkHTML =
+      '<li><a href="#' +
+      articleId +
+      '"><span>' +
+      articleId +
+      '</span></a></li>';
     console.log('linkHTML: ', linkHTML);
 
     /* insert link into titleList */
-    for (let titleListElem of titleList) {
-      titleListElem.insertAdjacentHTML('afterend', linkHTML);
-    }
+    console.log('titleList before for loop: ', titleList);
+    console.log('titleList.innerHTML: ', titleList.innerHTML);
+    /*for (let titleListElem of titleList) {*/
+    titleList.innerHTML = html;
+    //titleList.insertAdjacentHTML('afterend', linkHTML);
+    //}
     /* insert link into html variable */
     html = html + linkHTML;
     console.log('html: ', html);
   }
-  titleList.innerHTML = html;
+
   console.log('titleList: ', titleList);
   const links = document.querySelectorAll('.titles a');
   console.log('links: ', links);
