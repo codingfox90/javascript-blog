@@ -117,6 +117,7 @@ function calculateTagsParams(tags) {
     console.log('params.max', params.max);
     params.min = Math.min(tags[tag], params.min);
   }
+  return params;
 }
 function calculateTagClass(count, params) {
   const normalizedCount = count - params.min;
@@ -164,6 +165,7 @@ function generateTags() {
       console.log('html with linkHTML: ', html);
 
       /* [NEW] check if this link is NOT already in allTags */
+      // eslint-disable-next-line no-prototype-builtins
       if (!allTags.hasOwnProperty(tag) == 1) {
         /* [NEW] add tag to allTags object*/
         allTags[tag] = 1;
@@ -186,7 +188,7 @@ function generateTags() {
   console.log('tagList: ', tagList);
   console.log('allTags: ', allTags);
   const tagsParams = calculateTagsParams(allTags);
-  console.log('tagsParams:', allTags);
+  console.log('tagsParams:', calculateTagsParams(allTags));
 
   /* [NEW] create variable for all links HTML code */
   let allTagsHTML = '';
