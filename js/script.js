@@ -3,6 +3,9 @@ const templates = {
   articleLink: Handlebars.compile(
     document.querySelector('#template-article-link').innerHTML
   ),
+  tagLink: Handlebars.compile(
+    document.querySelector('#template-tag-link').innerHTML
+  ),
   tagCloudLink: Handlebars.compile(
     document.querySelector('#template-tag-cloud-link').innerHTML
   ),
@@ -67,13 +70,12 @@ function generateTitleLinks(customSelector = '') {
   /* for each article */
   /*add line from prework wykorzystanie selektora*/
   const articles = document.querySelectorAll(
-    optArticleSelector,
-    customSelector
+    optArticleSelector + customSelector
   );
   console.log('optArticleSelector: ', optArticleSelector);
   console.log('customSelector): ', customSelector);
   console.log('articles: ', articles);
-  let html = '';
+  //let html = '';
   for (let article of articles) {
     /* get the article id */
     const articleId = article.getAttribute('id');
@@ -100,14 +102,15 @@ function generateTitleLinks(customSelector = '') {
 
     /* insert link into titleList */
     console.log('titleList before for loop: ', titleList);
-    console.log('titleList.innerHTML: ', titleList.innerHTML);
+
     /*for (let titleListElem of titleList) {*/
     //itleList.innerHTML = html;
     titleList.insertAdjacentHTML('beforeend', linkHTML);
+    console.log('titleList.innerHTML: ', titleList.innerHTML);
     //}
     /* insert link into html variable */
-    html = html + linkHTML;
-    console.log('html: ', html);
+    //html = html + linkHTML;
+    // console.log('html: ', html);
   }
 
   console.log('titleList: ', titleList);
@@ -175,7 +178,7 @@ function generateTags() {
         '<li><a href="#tag-' + tag + '">' + tag + '</a></li><span> </span>';
       console.log('linkHTML tag: ', linkHTML);*/
       const linkHTMLData = { id: tag, title: tag };
-      const linkHTML = templates.articleLink(linkHTMLData);
+      const linkHTML = templates.tagLink(linkHTMLData);
 
       /* add generated code to html variable */
       html = html + linkHTML;
@@ -246,7 +249,6 @@ generateTags();
 function tagClickHandler(event) {
   /* prevent default action for this event */
   event.preventDefault();
-
   /* make new constant named "clickedElement" and give it the value of "this" */
   const clickedElement = this;
 
@@ -268,7 +270,7 @@ function tagClickHandler(event) {
     /* END LOOP: for each active tag link */
   }
   /* find all tag links with "href" attribute equal to the "href" constan */
-  const sameTags = document.querySelectorAll('[href="' + href + '"]');
+  const sameTags = document.querySelectorAll('a[href="' + href + '"]');
   console.log('SameTags: ', sameTags);
 
   /* START LOOP: for each found tag link */
