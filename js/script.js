@@ -6,6 +6,9 @@ const templates = {
   tagLink: Handlebars.compile(
     document.querySelector('#template-tag-link').innerHTML
   ),
+  authorLink: Handlebars.compile(
+    document.querySelector('#template-author-link').innerHTML
+  ),
   tagCloudLink: Handlebars.compile(
     document.querySelector('#template-tag-cloud-link').innerHTML
   ),
@@ -321,7 +324,7 @@ function generateAuthors() {
     console.log('author: ', author.innerText);
     // const linkHTML = '<a href="#author-' + author + '">' + author + '</a>';
     const linkHTMLData = { id: author, title: author };
-    const linkHTML = templates.articleLink(linkHTMLData);
+    const linkHTML = templates.authorLink(linkHTMLData);
     console.log('linkHTML author: ', linkHTML);
     //tagWrapper.insertAdjacentHTML('beforeend', linkHTML);
 
@@ -417,12 +420,13 @@ function authorClickHandler(event) {
     /* END LOOP: for each found tag link */
   }
   /* execute function "generateTitleLinks" with article selector as argument*/
-  generateTitleLinks('[data-tags="' + author + '"]');
+  generateTitleLinks('[data-author="' + author + '"]');
 }
 
 function addClickListenersToAuthors() {
   /* find all links to tags */
-  const authorLinks = document.querySelectorAll('[href^="#tag-"]');
+  const authorLinks = document.querySelectorAll('[href^="#author-"]');
+  console.log('dupaauthor', authorLinks);
   /* START LOOP: for each link */
   /* add tagClickHandler as event listener for that link */
   for (let authorLink of authorLinks) {
